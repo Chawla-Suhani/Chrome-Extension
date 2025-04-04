@@ -1,0 +1,92 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    background: url('bg4.jpeg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1%; /* Align to left */
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #ff4d4f;
+    padding: 12px 20px;
+    color: #fff;
+    border-radius: 8px;
+    position: absolute;
+    top: 30px;
+    left: 10%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.shield {
+    font-size: 22px;
+}
+
+.blocksite {
+    font-weight: 600;
+}
+
+/* Content */
+.content {
+    text-align: left;
+    margin-top: 30px;
+}
+
+/* Title */
+.title {
+    font-size: 72px; /* Larger font size for modern look */
+    color: #222; /* Slightly softer black */
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -1.2px;
+    line-height: 1.1;
+}
+
+/* Message */
+.message {
+    color: #555;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 600px;
+}
+
+/* Strong Tag */
+.message strong {
+    color: #ff4d4f;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 5%;
+    }
+
+    .title {
+        font-size: 48px;
+    }
+
+    .message {
+        font-size: 18px;
+    }
+
+    .header {
+        left: 5%;
+        top: 20px;
+        padding: 8px 16px;
+    }
+}

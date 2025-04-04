@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Blocklist</title>
+  <style>
+/* General Styling */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Headings */
+h2 {
+  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 5px;
+  font-weight: 600;
+}
+
+/* Containers with Glassmorphism */
+.schedule-container,
+.blocklist-container {
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 500px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.schedule-container:hover,
+.blocklist-container:hover {
+  transform: translateY(-4px);
+  background: rgba(40, 40, 40, 0.8);
+  /* background: black; */
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #b0b0b0;
+}
+
+/* Inputs */
+input[type="time"],
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: rgba(44, 44, 44, 0.8);
+  /* background-color: black; */
+  color: #e0e0e0;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #4caf50;
+  outline: none;
+  background-color: rgba(50, 50, 50, 0.9);
+}
+
+/* 3D-Like Primary Button */
+button {
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  cursor: pointer;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+button:hover {
+  background-color: #45a049;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.6);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Toggle Switch */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.toggle-label {
+  font-size: 16px;
+  color: #b0b0b0;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #444;
+  border-radius: 34px;
+  transition: background-color 0.3s ease;
+}
+
+.slider::before {
+  position: absolute;
+  content: '';
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+/* Blocklist Section */
+#blockedSitesList {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 16px;
+}
+
+/* Site Item Styling */
+.site-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(37, 37, 37, 0.9);
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.3s ease;
+}
+
+.site-item:hover {
+  background-color: rgba(47, 47, 47, 0.9);
+}
+
+/* Delete Button */
+.delete-btn {
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+  transform: translateY(-2px);
+}
+
+.delete-btn:active {
+  transform: translateY(0);
+}
+
+
+/* streak option */
+/* Streak Section */
+.streak-container {
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.streak-container:hover {
+  transform: translateY(-4px);
+}
+
+#streakCount {
+  font-size: 28px;
+  color: #4caf50;
+  font-weight: 600;
+}
+
+
+
+/* till here streak */
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .schedule-container,
+  .blocklist-container {
+    padding: 16px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .delete-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+<!-- Set Focus Schedule Section -->
+<h2>Set Focus Schedule</h2>
+<!-- Streak Section -->
+<h2>Your Streak</h2>
+<div class="streak-container">
+  <p>🔥 Streak: <span id="streakCount">0</span> days</p>
+</div>
+
+<div class="schedule-container">
+  <label for="startTime">Start Time:</label>
+  <input type="time" id="startTime" />
+
+  <label for="endTime">End Time:</label>
+  <input type="time" id="endTime" />
+
+  <div class="toggle-container">
+    <!-- <span class="toggle-label">Enable Focus Mode</span> -->
+    <!-- <label class="toggle-switch">
+      <span class="slider"></span>
+    </label> -->
+  </div>
+
+  <button type="button" id="saveSchedule" >Save Schedule</button>
+</div>
+
+<!-- Blocklist Section -->
+<h2>Edit Blocklist</h2>
+<div class="blocklist-container">
+  <input type="text" id="siteInput" placeholder="Enter website URL" />
+  <button id="addBtn">Block</button>
+
+  <!-- List to display blocked sites -->
+  <ul id="blockedSitesList">
+    <!-- Example Blocked Site -->
+    <!-- <li class="site-item">
+      <span>example.com</span>
+      <button class="delete-btn">Unblock</button>
+    </li> -->
+  </ul>
+</div>
+
+  <script src="popup.js"></script>
+  <script src="settings1.js"></script>
+</body>
+</html>
